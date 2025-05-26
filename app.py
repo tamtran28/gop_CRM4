@@ -4,7 +4,7 @@ from io import BytesIO
 
 st.title("Gộp và Tách File CRM4 Theo Nhóm Nợ")
 
-uploaded_files = st.file_uploader("Tải lên các file CRM4 (Excel)", type=['xlsx'], accept_multiple_files=True)
+uploaded_files = st.file_uploader("Tải lên các file CRM4 (Excel)", type=['xls'], accept_multiple_files=True)
 
 if uploaded_files:
     all_data = pd.DataFrame()
