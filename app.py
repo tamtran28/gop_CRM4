@@ -36,9 +36,8 @@ if uploaded_files:
             st.success(f"Đã gộp {len(uploaded_files) - len(error_files)} file thành công với tổng {len(all_data)} dòng.")
 
             if 'NHOM_NO' in all_data.columns:
-                nhom_1_2 = all_data[all_data['NHOM_NO'].isin([1, 2]])
-                nhom_3_4_5 = all_data[all_data['NHOM_NO'].isin([3, 4, 5]])
-
+                nhom_1_2 = all_data[all_data['NHOM_NO'].isin([1, 2])]
+                nhom_3_4_5 = all_data[all_data['NHOM_NO'].isin([3, 4, 5])]
                 st.subheader("Dữ liệu nhóm nợ 1 & 2")
                 st.dataframe(nhom_1_2)
 
