@@ -4,6 +4,7 @@ from io import BytesIO
 
 st.title("Gộp và Tách File CRM4 Theo Nhóm Nợ")
 
+# Cho phép tải lên cả file .xls và .xlsx
 uploaded_files = st.file_uploader(
     "Tải lên các file CRM4 (Excel)",
     type=['xls', 'xlsx'],
@@ -28,7 +29,7 @@ if uploaded_files:
                 st.error(f"Lỗi khi đọc file {file.name}: {e}")
 
         if error_reading_files and all_data.empty:
-            st.warning(f"Không thể đọc được các file: {', '.join(error_files)}. Vui lòng kiểm tra lại.")
+            st.warning(f"Không thể đọc được bất kỳ file nào: {', '.join(error_files)}. Vui lòng kiểm tra lại.")
         elif error_reading_files:
             st.warning(f"Lỗi khi đọc một số file: {', '.join(error_files)}. Các file đọc thành công vẫn được xử lý.")
 
@@ -38,11 +39,12 @@ if uploaded_files:
             if 'NHOM_NO' in all_data.columns:
                 nhom_1_2 = all_data[all_data['NHOM_NO'].isin([1, 2])]
                 nhom_3_4_5 = all_data[all_data['NHOM_NO'].isin([3, 4, 5])]
+
                 st.subheader("Dữ liệu nhóm nợ 1 & 2")
-                st.dataframe(nhom_1_2)
+                st.dataframe(nhom_1_2.head()) # Hiển thị một vài dòng đầu
 
                 st.subheader("Dữ liệu nhóm nợ 3, 4 & 5")
-                st.dataframe(nhom_3_4_5)
+                st.dataframe(nhom_3_4_5.head()) # Hiển thị một vài dòng đầu
 
                 def to_excel(df_nhom_1_2, df_nhom_3_4_5):
                     output = BytesIO()
@@ -61,5 +63,5 @@ if uploaded_files:
                 )
             else:
                 st.warning("Không tìm thấy cột 'NHOM_NO' trong các file đã tải lên. Vui lòng kiểm tra lại cấu trúc file.")
-        elif not error_reading_files:
-            st.warning("Vui lòng tải lên các file Excel để xử lý.")
+        else:
+            st.warning("Không có dữ liệu nào được gộp thành công từ các file đã tải lên.")
